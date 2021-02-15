@@ -8,17 +8,22 @@ defmodule PracticeWeb.PageController do
   def double(conn, %{"x" => x}) do
     {x, _} = Integer.parse(x)
     y = Practice.double(x)
-    render conn, "double.html", x: x, y: y
+    render(conn, "double.html", x: x, y: y)
   end
 
   def calc(conn, %{"expr" => expr}) do
     y = Practice.calc(expr)
-    render conn, "calc.html", expr: expr, y: y
+    render(conn, "calc.html", expr: expr, y: y)
   end
 
   def factor(conn, %{"x" => x}) do
-    y = Practice.factor(x)
-    render conn, "factor.html", x: x, y: y
+    {x, _} = Integer.parse(x)
+
+    y =
+      Practice.factor(x)
+      |> Enum.map(&Integer.to_string/1)
+
+    render(conn, "factor.html", x: x, y: y)
   end
 
   # TODO: Add an action for palindrome.

@@ -21,4 +21,25 @@ defmodule Practice.Calc do
     # |> reverse to prefix
     # |> evaluate as a stack calculator using pattern matching
   end
+
+  def tag_tokens('+'), do: {:op, '+'}
+  def tag_tokens('-'), do: {:op, '-'}
+  def tag_tokens('*'), do: {:op, '*'}
+  def tag_tokens('/'), do: {:op, '/'}
+  def tag_tokens(num), do: {:num, parse_float(num)}
+
+  def postfix([], [], post), do: post
+  def postfix([], [op | ops], post), do: postfix([], ops, [op | post])
+
+  def postfix([{:num, num} | toks], ops, post) do
+    postfix(toks, ops, [{:num, num} | post])
+  end
+
+  def postfix([{:op, op} | toks], ops, post) do
+    case {op, ops} do
+      {op, []} ->
+        postfix(toks, [op], post)
+        {[]}
+    end
+  end
 end
