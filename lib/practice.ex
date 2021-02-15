@@ -21,5 +21,7 @@ defmodule Practice do
     Practice.Factor.factor(x)
   end
 
-  # TODO: Add a palindrome? function.
+  def palindrome(x) do
+    Practice.Palindrome.palindrome?(x)
+  end
 end

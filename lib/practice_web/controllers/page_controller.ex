@@ -21,9 +21,14 @@ defmodule PracticeWeb.PageController do
 
     y =
       Practice.factor(x)
-      |> Enum.map(&Integer.to_string/1)
+      |> Enum.join(" * ")
 
     render(conn, "factor.html", x: x, y: y)
+  end
+
+  def palindrome(conn, %{"word" => word}) do
+    x = Practice.Palindrome.palindrome?(word)
+    render(conn, "palindrome.html", word: word, x: x)
   end
 
   # TODO: Add an action for palindrome.
